@@ -16,7 +16,7 @@ DRIVER_PATH = os.getenv("DRIVER")
 WEBHOOK = os.getenv("WEBHOOK_URL")
 
 chrome_options = Options()
-# chrome_options.add_argument("--headless")  # Run in headless mode
+chrome_options.add_argument("--headless")  # Run in headless mode
 driver = webdriver.Chrome(service=Service(DRIVER_PATH), options=chrome_options)
 
 # Discord Integration
