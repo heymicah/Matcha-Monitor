@@ -7,16 +7,23 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from datetime import datetime
 import requests
+import os
+from dotenv import load_dotenv, dotenv_values 
+load_dotenv()
+
+# ENV Variables
+DRIVER_PATH = os.getenv("DRIVER")
+WEBHOOK = os.getenv("WEBHOOK_URL")
 
 chrome_options = Options()
 # chrome_options.add_argument("--headless")  # Run in headless mode
-driver = webdriver.Chrome(service=Service(r"C:\Users\micah\Desktop\Coding\chromedriver-win64\chromedriver.exe"), options=chrome_options)
+driver = webdriver.Chrome(service=Service(DRIVER_PATH), options=chrome_options)
 
 # Discord Integration
-webhook = 'https://discord.com/api/webhooks/1283597052785328128/uGIkengXdXhLBwBYsh2bSsrz9p4XIvHdaFIPzFrvzU-lShnR-3lHxVDSegr5FVs-J8cn'
+webhook = WEBHOOK
 
 # URL to monitor
-url = "https://www.marukyu-koyamaen.co.jp/english/shop/products/1b4g020c1/"
+url = "https://www.marukyu-koyamaen.co.jp/english/shop/products/1141020c1/"
 
 def main():
     try:
