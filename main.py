@@ -39,7 +39,12 @@ def main():
                     button_element = driver.find_element(By.CSS_SELECTOR, "button.single_add_to_cart_button")
                     if button_element.text == "Add To Cart":
                         stock_status = "In Stock"
-                        instock_notification(webhook, url)
+                        message = {
+                        'content': f'''IN STOCK GO GO GO
+                        Link: {url}
+                                    '''
+                        }
+                        instock_notification(webhook, message)
                     else:
                         stock_status = "Unknown"
                 except:
@@ -52,16 +57,17 @@ def main():
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+        message = {
+        'content': f'''An error occurred, restart monitor
+        Link: {url}
+                    '''
+        }
+        instock_notification(webhook, message)
 
     finally:
         driver.quit()
 
-def instock_notification(webhook, url):
-    message = {
-    'content': f'''IN STOCK GO GO GO
-    Link: {url}
-                '''
-    }
+def instock_notification(webhook, message):
     # Send the POST request to the webhook URL
     response = requests.post(webhook, json=message)
 
